@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Mohamed Hemamda</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;1,300&family=Barlow+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;600&family=Barlow+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -23,7 +23,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--barlow);overflow-x
 #cur2{width:40px;height:40px;border:1px solid rgba(255,255,255,.4);transition:all .2s ease}
 #bg-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
 
-/* LOADER */
 #loader{position:fixed;inset:0;z-index:1000;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .8s,visibility .8s}
 #loader.hide{opacity:0;visibility:hidden}
 .loader-name{font-family:var(--bebas);font-size:clamp(3rem,10vw,8rem);letter-spacing:.05em;color:var(--text);line-height:1;text-align:center}
@@ -31,19 +30,17 @@ body{background:var(--bg);color:var(--text);font-family:var(--barlow);overflow-x
 .loader-bar{height:100%;background:var(--c1);width:0%}
 .loader-pct{font-family:var(--bcond);font-size:.75rem;color:var(--muted);letter-spacing:.2em;margin-top:.75rem}
 
-/* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:2rem 4rem}
 nav::before{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(5,5,8,.9),transparent);pointer-events:none}
 .nav-logo{font-family:var(--bebas);font-size:1.4rem;letter-spacing:.1em;color:var(--text);position:relative;z-index:1}
 .nav-logo span{color:var(--c1)}
-.nav-links{display:flex;gap:3rem;list-style:none;position:relative;z-index:1}
-.nav-links a{font-family:var(--bcond);font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .3s;position:relative}
+.nav-links{display:flex;gap:2.5rem;list-style:none;position:relative;z-index:1}
+.nav-links a{font-family:var(--bcond);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .3s;position:relative}
 .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--c1);transition:width .3s}
 .nav-links a:hover{color:var(--text)}
 .nav-links a:hover::after{width:100%}
 section{position:relative;z-index:1}
 
-/* HERO */
 #hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 4rem 6rem}
 .hero-eyebrow{font-family:var(--bcond);font-size:.8rem;letter-spacing:.25em;text-transform:uppercase;color:var(--c1);margin-bottom:1.5rem;opacity:0;animation:fadeUp .6s .2s forwards}
 .hero-h1{font-family:var(--bebas);font-size:clamp(5rem,14vw,13rem);line-height:.9;letter-spacing:.02em;opacity:0;animation:fadeUp .7s .4s forwards}
@@ -63,7 +60,6 @@ section{position:relative;z-index:1}
 
 .neon-line{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--c1),transparent);opacity:.3;position:relative;z-index:1}
 
-/* SECTIONS */
 .sec{padding:8rem 4rem;max-width:1400px;margin:0 auto}
 .sec-label{font-family:var(--bcond);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--c1);margin-bottom:4rem;display:flex;align-items:center;gap:1.5rem}
 .sec-label::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(255,107,53,.3),transparent)}
@@ -94,8 +90,32 @@ section{position:relative;z-index:1}
 .skill-panel ul li{font-size:.88rem;font-weight:300;color:rgba(240,237,232,.55);padding-left:1.2rem;position:relative;line-height:1.5}
 .skill-panel ul li::before{content:'›';position:absolute;left:0;color:var(--c1)}
 
+/* ── PROJETS SCOLAIRES ── */
+#projets{background:var(--bg)}
+.projets-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(255,255,255,.05)}
+.projet-card{background:var(--bg);padding:3.5rem 3rem;position:relative;overflow:hidden;transition:background .3s}
+.projet-card:hover{background:#0a0a12}
+.projet-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--c1),var(--c3));transform:scaleX(0);transform-origin:left;transition:transform .4s}
+.projet-card:hover::after{transform:scaleX(1)}
+.projet-card-num{font-family:var(--bebas);font-size:6rem;color:rgba(255,107,53,.04);position:absolute;bottom:-1rem;right:1.5rem;line-height:1;pointer-events:none}
+.projet-tag{font-family:var(--bcond);font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--c1);margin-bottom:.8rem}
+.projet-card h3{font-family:var(--bebas);font-size:2rem;letter-spacing:.03em;line-height:1;margin-bottom:.5rem}
+.projet-card .periode{font-family:var(--bcond);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:1.5rem}
+.projet-card p{font-size:.88rem;font-weight:300;line-height:1.8;color:rgba(240,237,232,.55);margin-bottom:1.5rem}
+.projet-techs{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.5rem}
+.tech-pill{font-family:var(--bcond);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .75rem;border:1px solid rgba(0,212,255,.2);color:rgba(0,212,255,.6)}
+.projet-livrables{margin-top:1rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,.06)}
+.projet-livrables p{font-family:var(--bcond);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem}
+.livrables-list{list-style:none;display:flex;flex-direction:column;gap:.35rem}
+.livrables-list li{font-size:.8rem;font-weight:300;color:rgba(240,237,232,.45);padding-left:1rem;position:relative}
+.livrables-list li::before{content:'✓';position:absolute;left:0;color:var(--c1);font-size:.65rem}
+
+/* COMPETENCES E5 badge */
+.e5-badges{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
+.e5-badge{font-family:var(--bcond);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;padding:.25rem .65rem;background:rgba(255,107,53,.08);border:1px solid rgba(255,107,53,.2);color:rgba(255,107,53,.8)}
+
 /* XP */
-#experience{background:var(--bg)}
+#experience{background:var(--bg2)}
 .xp-list{display:flex;flex-direction:column}
 .xp-item{display:grid;grid-template-columns:1fr 3fr;gap:4rem;padding:3.5rem 0;border-bottom:1px solid rgba(255,255,255,.06);opacity:0;transform:translateY(30px);transition:all .6s}
 .xp-item.vis{opacity:1;transform:translateY(0)}
@@ -107,10 +127,10 @@ section{position:relative;z-index:1}
 .xp-tag{font-family:var(--bcond);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .8rem;border:1px solid rgba(255,107,53,.25);color:rgba(255,107,53,.7)}
 
 /* FORMATION */
-#formation{background:var(--bg2)}
+#formation{background:var(--bg)}
 .form-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.05)}
-.form-card{background:var(--bg2);padding:3rem 2.5rem;position:relative;overflow:hidden;transition:background .3s}
-.form-card:hover{background:#0c0c16}
+.form-card{background:var(--bg);padding:3rem 2.5rem;position:relative;overflow:hidden;transition:background .3s}
+.form-card:hover{background:#0a0a12}
 .form-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--c1),var(--c4));transform:scaleX(0);transform-origin:left;transition:transform .4s}
 .form-card:hover::after{transform:scaleX(1)}
 .form-yr{font-family:var(--bcond);font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--c1);margin-bottom:1rem}
@@ -118,17 +138,15 @@ section{position:relative;z-index:1}
 .form-card p{font-size:.82rem;font-weight:300;color:var(--muted);line-height:1.5}
 .form-ghost{position:absolute;bottom:-1rem;right:1rem;font-family:var(--bebas);font-size:6rem;color:rgba(255,107,53,.04);pointer-events:none;line-height:1}
 
-/* LANGUES */
 .lang-wrap{display:flex;gap:1px;background:rgba(255,255,255,.05);margin-top:4rem}
-.lang-card{flex:1;background:var(--bg2);padding:2.5rem 2rem;text-align:center;transition:background .3s;position:relative;overflow:hidden}
-.lang-card:hover{background:#0c0c16}
+.lang-card{flex:1;background:var(--bg);padding:2.5rem 2rem;text-align:center;transition:background .3s;position:relative;overflow:hidden}
+.lang-card:hover{background:#0a0a12}
 .lang-flag{font-family:var(--bebas);font-size:3rem;color:var(--c1);display:block;margin-bottom:.4rem}
 .lang-name{font-family:var(--bcond);font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:.2rem}
 .lang-lv{font-family:var(--bcond);font-size:.68rem;letter-spacing:.1em;color:rgba(0,212,255,.7)}
 .lang-bar{position:absolute;bottom:0;left:0;height:2px;background:var(--c1)}
 
-/* CONTACT */
-#contact{background:var(--bg);min-height:60vh;display:flex;align-items:center}
+#contact{background:var(--bg2);min-height:60vh;display:flex;align-items:center}
 .contact-big{font-family:var(--bebas);font-size:clamp(3rem,9vw,8rem);line-height:.95;letter-spacing:.02em;margin-bottom:2rem}
 .contact-big span{color:var(--c1)}
 .contact-p{font-size:1rem;font-weight:300;color:rgba(240,237,232,.5);margin-bottom:3rem;line-height:1.8;max-width:500px}
@@ -136,7 +154,6 @@ section{position:relative;z-index:1}
 
 footer{border-top:1px solid rgba(255,255,255,.06);padding:2rem 4rem;display:flex;justify-content:space-between;align-items:center;font-family:var(--bcond);font-size:.7rem;letter-spacing:.1em;color:var(--muted);position:relative;z-index:1}
 
-/* MARQUEE */
 .marquee-wrap{position:relative;overflow:hidden;padding:3rem 0;border-top:1px solid rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.04)}
 .marquee{display:flex;gap:4rem;white-space:nowrap;animation:mq 22s linear infinite}
 .marquee span{font-family:var(--bebas);font-size:clamp(2.5rem,5vw,4.5rem);color:transparent;-webkit-text-stroke:1px rgba(255,107,53,.18);letter-spacing:.05em;flex-shrink:0}
@@ -158,7 +175,7 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:2rem 4rem;display:flex
   #hero{padding:0 1.5rem 5rem}
   .sec{padding:5rem 1.5rem}
   .about-grid{grid-template-columns:1fr;gap:3rem}
-  .skills-container{grid-template-columns:1fr}
+  .skills-container,.projets-grid{grid-template-columns:1fr}
   .form-grid{grid-template-columns:1fr}
   .xp-item{grid-template-columns:1fr;gap:1rem}
   .lang-wrap{flex-direction:column}
@@ -184,6 +201,7 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:2rem 4rem;display:flex
   <ul class="nav-links">
     <li><a href="#about">Profil</a></li>
     <li><a href="#skills">Skills</a></li>
+    <li><a href="#projets">Projets</a></li>
     <li><a href="#experience">XP</a></li>
     <li><a href="#formation">Formation</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -200,7 +218,7 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:2rem 4rem;display:flex
   </div>
   <div class="hero-cta">
     <a href="#contact" class="btn btn-fill">Me contacter</a>
-    <a href="#experience" class="btn btn-ghost">Mon parcours</a>
+    <a href="#projets" class="btn btn-ghost">Mes projets</a>
   </div>
   <div class="hero-scroll"><span>Scroll</span></div>
 </section>
@@ -209,7 +227,7 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:2rem 4rem;display:flex
 
 <div class="marquee-wrap">
   <div class="marquee">
-    <span>SYSTÈMES</span><span class="dot">·</span><span>RÉSEAUX</span><span class="dot">·</span><span>CYBERSÉCURITÉ</span><span class="dot">·</span><span>INFRASTRUCTURE</span><span class="dot">·</span><span>VMWARE</span><span class="dot">·</span><span>WIRESHARK</span><span class="dot">·</span><span>SYSTÈMES</span><span class="dot">·</span><span>RÉSEAUX</span><span class="dot">·</span><span>CYBERSÉCURITÉ</span><span class="dot">·</span><span>INFRASTRUCTURE</span><span class="dot">·</span><span>VMWARE</span><span class="dot">·</span><span>WIRESHARK</span><span class="dot">·</span>
+    <span>SYSTÈMES</span><span class="dot">·</span><span>RÉSEAUX</span><span class="dot">·</span><span>ACTIVE DIRECTORY</span><span class="dot">·</span><span>VLAN</span><span class="dot">·</span><span>VMWARE</span><span class="dot">·</span><span>WIRESHARK</span><span class="dot">·</span><span>SYSTÈMES</span><span class="dot">·</span><span>RÉSEAUX</span><span class="dot">·</span><span>ACTIVE DIRECTORY</span><span class="dot">·</span><span>VLAN</span><span class="dot">·</span><span>VMWARE</span><span class="dot">·</span><span>WIRESHARK</span><span class="dot">·</span>
   </div>
 </div>
 
@@ -241,9 +259,90 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:2rem 4rem;display:flex
     <div class="sec-label">02 — Compétences</div>
     <div class="skills-container">
       <div class="skill-panel reveal"><div class="skill-panel-num">01</div><div class="cat">Infrastructure</div><h3>Systèmes & Réseaux</h3><ul><li>Installation & configuration de postes (PC, imprimantes, Wi-Fi)</li><li>Mise en place de serveurs et configuration de switchs</li><li>Routage entre réseaux, tables de routage statiques</li><li>Analyse de trames Wireshark (ARP, IP, ICMP, DHCP)</li><li>Transfert de données Android ↔ iOS</li></ul></div>
-      <div class="skill-panel reveal"><div class="skill-panel-num">02</div><div class="cat">Protection</div><h3>Sécurité informatique</h3><ul><li>Paramétrage de pare-feu</li><li>Gestion d'antivirus</li><li>Gestion de sauvegardes</li><li>Bonnes pratiques de sécurité</li></ul></div>
-      <div class="skill-panel reveal"><div class="skill-panel-num">03</div><div class="cat">Virtualisation</div><h3>Outils & Bureautique</h3><ul><li>Création & gestion de VMs sous VMware</li><li>Word, Excel</li><li>Diagnostic & réparation matérielle</li><li>Traceurs, photocopieurs</li></ul></div>
-      <div class="skill-panel reveal"><div class="skill-panel-num">04</div><div class="cat">Soft Skills</div><h3>Communication</h3><ul><li>Rédaction de mails professionnels & rapports</li><li>Rédaction de procédures de prise en main</li><li>Support & formation des utilisateurs</li><li>Polyvalent, autonome</li></ul></div>
+      <div class="skill-panel reveal"><div class="skill-panel-num">02</div><div class="cat">Protection</div><h3>Sécurité informatique</h3><ul><li>Paramétrage de pare-feu</li><li>Gestion d'antivirus & Windows Defender</li><li>GPO — stratégies de mots de passe & verrouillage</li><li>Gestion de sauvegardes</li><li>Audit de sécurité (journaux, KDC, Netlogon)</li></ul></div>
+      <div class="skill-panel reveal"><div class="skill-panel-num">03</div><div class="cat">Virtualisation</div><h3>Outils & Virtualisation</h3><ul><li>Création & gestion de VMs sous VMware & VirtualBox</li><li>Windows Server 2019 — AD DS, DNS, DHCP</li><li>Cisco Packet Tracer — VLANs, routage inter-VLAN</li><li>Diagnostic & réparation de pannes matérielles</li></ul></div>
+      <div class="skill-panel reveal"><div class="skill-panel-num">04</div><div class="cat">Soft Skills</div><h3>Communication</h3><ul><li>Rédaction de mails professionnels & rapports</li><li>Rédaction de procédures de prise en main</li><li>Support & formation courte des utilisateurs</li><li>Polyvalent, autonome, bonne gestion du temps</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<div class="neon-line"></div>
+
+<!-- ══════════════════════════════
+     PROJETS SCOLAIRES
+══════════════════════════════ -->
+<section id="projets">
+  <div class="sec">
+    <div class="sec-label">03 — Projets scolaires</div>
+    <div class="projets-grid">
+
+      <!-- PROJET 1 — ACTIVE DIRECTORY -->
+      <div class="projet-card reveal">
+        <div class="projet-tag">Formation · BTS SIO SISR</div>
+        <h3>Projet Active<br>Directory</h3>
+        <div class="periode">Mars 2026 — VirtualBox · Windows Server 2019</div>
+        <p>Déploiement complet d'une infrastructure Active Directory sur Windows Server 2019 sous VirtualBox. Configuration du contrôleur de domaine esup.local, création des unités d'organisation (Direction, Informatique, Comptabilité, Étudiants), import en masse d'utilisateurs via PowerShell et CSV, mise en place de GPO de sécurité.</p>
+        <div class="projet-techs">
+          <span class="tech-pill">Windows Server 2019</span>
+          <span class="tech-pill">VirtualBox</span>
+          <span class="tech-pill">AD DS</span>
+          <span class="tech-pill">DNS</span>
+          <span class="tech-pill">PowerShell</span>
+          <span class="tech-pill">GPO</span>
+          <span class="tech-pill">Kerberos</span>
+        </div>
+        <div class="projet-livrables">
+          <p>Livrables produits</p>
+          <ul class="livrables-list">
+            <li>Schéma de l'infrastructure AD (OU, groupes, users)</li>
+            <li>Script PowerShell d'import CSV utilisateurs</li>
+            <li>GPO-MotDePasse : complexité, durée 60j, historique 5</li>
+            <li>GPO-Verrouillage : écran de veille avec mot de passe</li>
+            <li>Rapport de configuration et captures d'écran</li>
+          </ul>
+        </div>
+        <div class="e5-badges">
+          <span class="e5-badge">C3 — Patrimoine</span>
+          <span class="e5-badge">C6 — Projet</span>
+          <span class="e5-badge">C7 — Service</span>
+        </div>
+        <div class="projet-card-num">01</div>
+      </div>
+
+      <!-- PROJET 2 — VLAN -->
+      <div class="projet-card reveal">
+        <div class="projet-tag">Formation · BTS SIO SISR</div>
+        <h3>Projet VLAN<br>Packet Tracer</h3>
+        <div class="periode">2026 — Cisco Packet Tracer · Niveau intermédiaire</div>
+        <p>Conception et configuration d'un réseau multi-services pour la société fictive « StratAdvise » avec 3 VLANs isolés (RH, Finances, IT). Mise en place du routage inter-VLAN, serveurs DHCP, DNS et HTTP, contrôles d'accès ACL, supervision SNMP et simulation de pannes réseau avec procédures de résolution.</p>
+        <div class="projet-techs">
+          <span class="tech-pill">Cisco Packet Tracer</span>
+          <span class="tech-pill">VLAN</span>
+          <span class="tech-pill">Routage inter-VLAN</span>
+          <span class="tech-pill">DHCP</span>
+          <span class="tech-pill">DNS</span>
+          <span class="tech-pill">ACL</span>
+          <span class="tech-pill">SNMP</span>
+        </div>
+        <div class="projet-livrables">
+          <p>Livrables produits</p>
+          <ul class="livrables-list">
+            <li>Schéma réseau détaillé et annoté</li>
+            <li>Tableau d'adressage IP</li>
+            <li>Fichier Packet Tracer .pkt complet</li>
+            <li>Procédures de configuration et guide d'incidents</li>
+            <li>Captures d'écran des tests de connectivité</li>
+          </ul>
+        </div>
+        <div class="e5-badges">
+          <span class="e5-badge">C3 — Patrimoine</span>
+          <span class="e5-badge">C4 — Incidents</span>
+          <span class="e5-badge">C6 — Projet</span>
+          <span class="e5-badge">C7 — Service</span>
+        </div>
+        <div class="projet-card-num">02</div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -253,7 +352,7 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:2rem 4rem;display:flex
 <!-- XP -->
 <section id="experience">
   <div class="sec">
-    <div class="sec-label">03 — Expériences</div>
+    <div class="sec-label">04 — Expériences</div>
     <div class="xp-list">
       <div class="xp-item">
         <div><div class="xp-date">Depuis jan. 2026</div><div class="xp-co">Tunzini</div></div>
@@ -276,13 +375,13 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:2rem 4rem;display:flex
 <!-- FORMATION -->
 <section id="formation">
   <div class="sec">
-    <div class="sec-label">04 — Formation</div>
+    <div class="sec-label">05 — Formation</div>
     <div class="form-grid">
       <div class="form-card reveal"><div class="form-yr">2025 → 2027</div><h3>BTS SIO<br>Option SISR</h3><p>Lycée Montalembert, Courbevoie</p><div class="form-ghost">BTS</div></div>
       <div class="form-card reveal"><div class="form-yr">2024 → 2025</div><h3>Licence STAPS<br>Spécialité Sport</h3><p>Université Paris Nanterre</p><div class="form-ghost">L1</div></div>
       <div class="form-card reveal"><div class="form-yr">2023 → 2024</div><h3>Baccalauréat<br>Général Scientifique</h3><p>Lycée Joliot Curie, Nanterre</p><div class="form-ghost">BAC</div></div>
     </div>
-    <div class="sec-label" style="margin-top:5rem">05 — Langues</div>
+    <div class="sec-label" style="margin-top:5rem">06 — Langues</div>
     <div class="lang-wrap">
       <div class="lang-card reveal"><span class="lang-flag">FR</span><span class="lang-name">Français</span><span class="lang-lv">C2 — Natif</span><div class="lang-bar" style="width:100%"></div></div>
       <div class="lang-card reveal"><span class="lang-flag">EN</span><span class="lang-name">Anglais</span><span class="lang-lv">B2 — Avancé</span><div class="lang-bar" style="width:72%"></div></div>
@@ -295,18 +394,18 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:2rem 4rem;display:flex
 
 <div class="marquee-wrap">
   <div class="marquee" style="animation-direction:reverse">
-    <span>NANTERRE</span><span class="dot">·</span><span>COURBEVOIE</span><span class="dot">·</span><span>TUNZINI</span><span class="dot">·</span><span>BTS SIO</span><span class="dot">·</span><span>SISR</span><span class="dot">·</span><span>ADMIN SYS</span><span class="dot">·</span><span>NANTERRE</span><span class="dot">·</span><span>COURBEVOIE</span><span class="dot">·</span><span>TUNZINI</span><span class="dot">·</span><span>BTS SIO</span><span class="dot">·</span><span>SISR</span><span class="dot">·</span><span>ADMIN SYS</span><span class="dot">·</span>
+    <span>ACTIVE DIRECTORY</span><span class="dot">·</span><span>GPO</span><span class="dot">·</span><span>VLAN</span><span class="dot">·</span><span>PACKET TRACER</span><span class="dot">·</span><span>WINDOWS SERVER</span><span class="dot">·</span><span>POWERSHELL</span><span class="dot">·</span><span>ACTIVE DIRECTORY</span><span class="dot">·</span><span>GPO</span><span class="dot">·</span><span>VLAN</span><span class="dot">·</span><span>PACKET TRACER</span><span class="dot">·</span><span>WINDOWS SERVER</span><span class="dot">·</span><span>POWERSHELL</span><span class="dot">·</span>
   </div>
 </div>
 
 <!-- CONTACT -->
 <section id="contact">
   <div class="sec">
-    <div class="sec-label">06 — Contact</div>
+    <div class="sec-label">07 — Contact</div>
     <div class="contact-big reveal">Travaillons<br><span>ensemble.</span></div>
     <p class="contact-p reveal">Disponible pour des opportunités d'alternance ou de stage. N'hésitez pas à me contacter.</p>
     <div class="contact-links reveal">
-      <a href="mailto:mohamed.hemamda017@gmail.com" class="btn btn-fill">Envoyer un email</a>
+      <a href="mailto: mohamed.hemamda017@gmail.com" class="btn btn-fill">Envoyer un email</a>
       <a href="https://www.linkedin.com/in/mohamed-h-7b102032a/" target="_blank" class="btn btn-ghost">LinkedIn</a>
     </div>
   </div>
@@ -314,7 +413,7 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:2rem 4rem;display:flex
 
 <footer>
   <span>Mohamed Hemamda © 2026</span>
-  <span>Nanterre 92000 · Permis B </span>
+  <span>Nanterre 92000 · Permis B en cours</span>
   <span>BTS SIO SISR — Tunzini</span>
 </footer>
 
@@ -326,8 +425,7 @@ const lbar=document.getElementById('lbar'),lpct=document.getElementById('lpct'),
 const iv=setInterval(()=>{
   prog+=Math.random()*4+1;
   if(prog>=100){prog=100;clearInterval(iv);setTimeout(()=>loaderEl.classList.add('hide'),500);}
-  lbar.style.width=prog+'%';
-  lpct.textContent=Math.floor(prog)+'%';
+  lbar.style.width=prog+'%';lpct.textContent=Math.floor(prog)+'%';
 },55);
 
 // CURSOR
@@ -335,12 +433,12 @@ const cur=document.getElementById('cur'),cur2=document.getElementById('cur2');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=(mx-6)+'px';cur.style.top=(my-6)+'px';});
 (function loop(){rx+=(mx-rx-20)*.1;ry+=(my-ry-20)*.1;cur2.style.left=rx+'px';cur2.style.top=ry+'px';requestAnimationFrame(loop);})();
-document.querySelectorAll('a,button,.skill-panel,.form-card,.stat-box').forEach(el=>{
+document.querySelectorAll('a,button,.skill-panel,.form-card,.stat-box,.projet-card').forEach(el=>{
   el.addEventListener('mouseenter',()=>{cur.style.transform='scale(2.5)';cur2.style.borderColor='rgba(255,107,53,.8)';});
   el.addEventListener('mouseleave',()=>{cur.style.transform='scale(1)';cur2.style.borderColor='rgba(255,255,255,.4)';});
 });
 
-// THREE.JS — particle sphere
+// THREE.JS
 const canvas=document.getElementById('bg-canvas');
 const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
 renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
@@ -348,61 +446,29 @@ renderer.setSize(window.innerWidth,window.innerHeight);
 const scene=new THREE.Scene();
 const camera=new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,.1,1000);
 camera.position.z=4;
-
-// Particles
-const N=3500;
-const geo=new THREE.BufferGeometry();
-const pos=new Float32Array(N*3);
-const col=new Float32Array(N*3);
+const N=3500,geo=new THREE.BufferGeometry();
+const pos=new Float32Array(N*3),col=new Float32Array(N*3);
 for(let i=0;i<N;i++){
-  const theta=Math.random()*Math.PI*2;
-  const phi=Math.acos(2*Math.random()-1);
-  const r=2+(Math.random()-.5)*.7;
-  pos[i*3]=r*Math.sin(phi)*Math.cos(theta);
-  pos[i*3+1]=r*Math.sin(phi)*Math.sin(theta);
-  pos[i*3+2]=r*Math.cos(phi);
-  const t=Math.random();
-  col[i*3]=1*t+0*(1-t);
-  col[i*3+1]=.42*t+.83*(1-t);
-  col[i*3+2]=.21*t+1*(1-t);
+  const theta=Math.random()*Math.PI*2,phi=Math.acos(2*Math.random()-1),r=2+(Math.random()-.5)*.7;
+  pos[i*3]=r*Math.sin(phi)*Math.cos(theta);pos[i*3+1]=r*Math.sin(phi)*Math.sin(theta);pos[i*3+2]=r*Math.cos(phi);
+  const t=Math.random();col[i*3]=t;col[i*3+1]=.42*t+.83*(1-t);col[i*3+2]=.21*t+(1-t);
 }
 geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
 geo.setAttribute('color',new THREE.BufferAttribute(col,3));
-const mat=new THREE.PointsMaterial({size:.016,vertexColors:true,transparent:true,opacity:.5,sizeAttenuation:true});
-const pts=new THREE.Points(geo,mat);
+const pts=new THREE.Points(geo,new THREE.PointsMaterial({size:.016,vertexColors:true,transparent:true,opacity:.5,sizeAttenuation:true}));
 scene.add(pts);
-
-// Wireframe inner core
-const cGeo=new THREE.IcosahedronGeometry(1.3,1);
-const cMat=new THREE.MeshBasicMaterial({color:0xff6b35,wireframe:true,transparent:true,opacity:.035});
-const core=new THREE.Mesh(cGeo,cMat);
+const core=new THREE.Mesh(new THREE.IcosahedronGeometry(1.3,1),new THREE.MeshBasicMaterial({color:0xff6b35,wireframe:true,transparent:true,opacity:.035}));
 scene.add(core);
-
 let tx=0,ty=0;
 document.addEventListener('mousemove',e=>{tx=(e.clientX/window.innerWidth-.5)*.8;ty=(e.clientY/window.innerHeight-.5)*.8;});
 let t=0;
-(function animate(){
-  requestAnimationFrame(animate);
-  t+=.004;
-  pts.rotation.y=t*.25+tx*.4;
-  pts.rotation.x=t*.08+ty*.25;
-  core.rotation.y=t*.4;
-  core.rotation.z=t*.15;
-  const s=1+.035*Math.sin(t*1.5);
-  pts.scale.set(s,s,s);
-  renderer.render(scene,camera);
-})();
-
-window.addEventListener('resize',()=>{
-  camera.aspect=window.innerWidth/window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth,window.innerHeight);
-});
+(function animate(){requestAnimationFrame(animate);t+=.004;pts.rotation.y=t*.25+tx*.4;pts.rotation.x=t*.08+ty*.25;core.rotation.y=t*.4;core.rotation.z=t*.15;const s=1+.035*Math.sin(t*1.5);pts.scale.set(s,s,s);renderer.render(scene,camera);})();
+window.addEventListener('resize',()=>{camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();renderer.setSize(window.innerWidth,window.innerHeight);});
 
 // SCROLL REVEAL
 const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');}),{threshold:.1});
 document.querySelectorAll('.reveal,.xp-item').forEach(el=>obs.observe(el));
-document.querySelectorAll('.skill-panel').forEach((el,i)=>{el.style.transitionDelay=(i*.1)+'s';obs.observe(el);});
+document.querySelectorAll('.skill-panel,.projet-card').forEach((el,i)=>{el.style.transitionDelay=(i*.12)+'s';obs.observe(el);});
 </script>
 </body>
 </html>
