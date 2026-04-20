@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mohamed Hemamda — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --bg2: #0f0f1a;
+      --card: #111120;
+      --border: #1e1e3a;
+      --accent: #4f8ef7;
+      --accent2: #7c3aed;
+      --green: #22d3a0;
+      --text: #e8e8f0;
+      --muted: #6b7280;
+      --mono: 'Space Mono', monospace;
+      --sans: 'Syne', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* CUSTOM CURSOR */
+    .cursor {
+      width: 10px; height: 10px;
+      background: var(--accent);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.1s ease;
+      mix-blend-mode: screen;
+    }
+    .cursor-ring {
+      width: 32px; height: 32px;
+      border: 1px solid rgba(79,142,247,0.5);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9998;
+      transition: transform 0.15s ease, width 0.2s, height 0.2s;
+    }
+
+    /* GRID BACKGROUND */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(79,142,247,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(79,142,247,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* NOISE OVERLAY */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      opacity: 0.4;
+      z-index: 0;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 4rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(20px);
+    }
+
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+    }
+    .nav-logo span { color: var(--green); }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* SECTIONS */
+    section {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 4rem 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .hero-tag {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--green);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.2s forwards;
+    }
+    .hero-tag::before { content: '> '; }
+
+    .hero-name {
+      font-family: var(--sans);
+      font-weight: 800;
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.35s forwards;
+    }
+    .hero-name .first { color: var(--text); }
+    .hero-name .last {
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(79,142,247,0.6);
+    }
+
+    .hero-title {
+      font-family: var(--mono);
+      font-size: clamp(0.85rem, 2vw, 1.1rem);
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.5s forwards;
+    }
+    .hero-title .hl { color: var(--accent); }
+
+    .hero-desc {
+      max-width: 560px;
+      font-size: 1rem;
+      line-height: 1.75;
+      color: rgba(232,232,240,0.65);
+      margin-bottom: 3rem;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.65s forwards;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.8s forwards;
+    }
+
+    .btn {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.85rem 2rem;
+      border: none;
+      cursor: none;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-block;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #000;
+    }
+    .btn-primary:hover {
+      background: #fff;
+      transform: translateY(-2px);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+    }
+    .btn-outline:hover {
+      background: rgba(79,142,247,0.1);
+      transform: translateY(-2px);
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 4rem;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.6s 1.1s forwards;
+    }
+    .hero-scroll::after {
+      content: '';
+      width: 40px;
+      height: 1px;
+      background: var(--muted);
+    }
+
+    /* BADGE FLOATING */
+    .status-badge {
+      position: absolute;
+      top: 9rem;
+      right: 4rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 1rem 1.5rem;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      opacity: 0;
+      animation: fadeIn 0.6s 1.3s forwards;
+    }
+    .status-badge .dot {
+      display: inline-block;
+      width: 7px; height: 7px;
+      background: var(--green);
+      border-radius: 50%;
+      margin-right: 0.5rem;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%,100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* DIVIDER LINE */
+    .section-line {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, var(--border), transparent);
+      margin: 0;
+    }
+
+    /* SECTION LAYOUT */
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 6rem 4rem;
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 3rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ABOUT */
+    #about { background: var(--bg2); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .about-text h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+    .about-text h2 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+    .about-text p {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: rgba(232,232,240,0.65);
+      margin-bottom: 1rem;
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .stat-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+    .stat-num {
+      font-family: var(--mono);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.25rem;
+    }
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    /* SKILLS */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .skill-group {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      transition: border-color 0.25s, transform 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .skill-group::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .skill-group:hover::before { transform: scaleX(1); }
+    .skill-group:hover {
+      border-color: var(--border);
+      transform: translateY(-4px);
+    }
+
+    .skill-group-title {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--green);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1.2rem;
+    }
+    .skill-group h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+      color: var(--text);
+    }
+    .skill-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+    .skill-list li {
+      font-size: 0.82rem;
+      color: rgba(232,232,240,0.65);
+      padding-left: 1rem;
+      position: relative;
+    }
+    .skill-list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-family: var(--mono);
+    }
+
+    /* EXPERIENCE */
+    #experience { background: var(--bg2); }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 3rem;
+      padding: 2.5rem 0;
+      border-bottom: 1px solid var(--border);
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: opacity 0.5s, transform 0.5s;
+    }
+    .timeline-item.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .timeline-date {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--muted);
+      padding-top: 0.2rem;
+      letter-spacing: 0.06em;
+    }
+    .timeline-date .company {
+      color: var(--accent);
+      font-weight: 700;
+      display: block;
+      margin-top: 0.3rem;
+      font-size: 0.7rem;
+    }
+
+    .timeline-content h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+    .timeline-content p {
+      font-size: 0.88rem;
+      line-height: 1.75;
+      color: rgba(232,232,240,0.6);
+      margin-bottom: 1rem;
+    }
+    .timeline-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .tag {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      padding: 0.25rem 0.65rem;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* FORMATION */
+    .formation-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .formation-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .formation-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(79,142,247,0.4);
+    }
+    .formation-year {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.8rem;
+    }
+    .formation-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+    .formation-card p {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .formation-bg {
+      position: absolute;
+      bottom: -10px;
+      right: -10px;
+      font-size: 5rem;
+      opacity: 0.03;
+      font-weight: 800;
+      font-family: var(--mono);
+      pointer-events: none;
+    }
+
+    /* LANGUES */
+    .lang-grid {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .lang-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 1.5rem 2.5rem;
+      text-align: center;
+      transition: transform 0.2s;
+    }
+    .lang-item:hover { transform: translateY(-3px); }
+    .lang-code {
+      font-family: var(--mono);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+    .lang-name {
+      font-size: 0.8rem;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+    .lang-level {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--green);
+    }
+
+    /* CONTACT */
+    #contact {
+      background: var(--bg);
+    }
+
+    .contact-inner {
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 6rem 2rem;
+    }
+    .contact-inner .pre {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--green);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .contact-inner h2 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+      line-height: 1.1;
+    }
+    .contact-inner p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 3rem;
+      line-height: 1.7;
+    }
+    .contact-links {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--muted);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s, transform 0.6s;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* SCROLLBAR */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+    /* TERMINAL BLINK */
+    @keyframes blink {
+      0%,100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    .blink { animation: blink 1s step-end infinite; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      #hero { padding: 7rem 1.5rem 4rem; }
+      .section-inner { padding: 4rem 1.5rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .timeline-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+      .status-badge { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">mh<span>@</span>dev<span class="blink">_</span></div>
+    <ul class="nav-links">
+      <li><a href="#about">Profil</a></li>
+      <li><a href="#skills">Compétences</a></li>
+      <li><a href="#experience">Expériences</a></li>
+      <li><a href="#formation">Formation</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-tag">Disponible — Apprenti BTS SIO SISR</div>
+    <h1 class="hero-name">
+      <span class="first">Mohamed<br></span>
+      <span class="last">Hemamda.</span>
+    </h1>
+    <p class="hero-title">
+      <span class="hl">Technicien Systèmes & Réseaux</span> · Apprenti chez Tunzini
+    </p>
+    <p class="hero-desc">
+      Passionné par l'administration systèmes et réseaux, je réalise des missions opérationnelles de support et d'infrastructure. Rigoureux, autonome, orienté service utilisateur.
+    </p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn btn-primary">Me contacter</a>
+      <a href="#experience" class="btn btn-outline">Voir mes expériences</a>
+    </div>
+    <div class="hero-scroll">Scroll</div>
+
+    <div class="status-badge">
+      <span class="dot"></span>Actuellement en apprentissage<br>
+      <span style="margin-left:1.3rem;color:#e8e8f0">Tunzini — Depuis jan. 2026</span>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <div class="section-line"></div>
+  <section id="about">
+    <div class="section-inner">
+      <div class="section-label">01 — Profil</div>
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <h2>Admin sys <em>&</em><br>réseaux en devenir.</h2>
+          <p>
+            Actuellement en 1ère année de BTS SIO option SISR au Lycée Montalembert de Courbevoie, j'effectue mon apprentissage chez Tunzini depuis janvier 2026. Je réalise quotidiennement des missions de support, de configuration et de maintenance.
+          </p>
+          <p>
+            Mon objectif est d'acquérir de solides compétences techniques pour évoluer vers des postes d'administrateur systèmes et réseaux, avec une appétence pour la cybersécurité.
+          </p>
+        </div>
+        <div class="about-stats reveal">
+          <div class="stat-card">
+            <div class="stat-num">3+</div>
+            <div class="stat-label">Langues maîtrisées<br>(FR, EN, ES)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">2026</div>
+            <div class="stat-label">Début d'apprentissage<br>chez Tunzini</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">SISR</div>
+            <div class="stat-label">Option BTS SIO<br>Systèmes & Réseaux</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">B2</div>
+            <div class="stat-label">Niveau anglais<br>professionnel</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <div class="section-line"></div>
+  <section id="skills">
+    <div class="section-inner">
+      <div class="section-label">02 — Compétences</div>
+      <div class="skills-grid">
+
+        <div class="skill-group reveal">
+          <div class="skill-group-title">// Systèmes & Réseaux</div>
+          <h3>Infrastructure</h3>
+          <ul class="skill-list">
+            <li>Installation et configuration de postes (PC, imprimantes, Wi-Fi)</li>
+            <li>Mise en place et configuration de serveurs & switchs</li>
+            <li>Observation et configuration du routage entre réseaux</li>
+            <li>Gestion de tables de routage statiques</li>
+            <li>Analyse de trames réseau avec Wireshark (ARP, IP, ICMP, DHCP)</li>
+          </ul>
+        </div>
+
+        <div class="skill-group reveal">
+          <div class="skill-group-title">// Sécurité</div>
+          <h3>Cybersécurité</h3>
+          <ul class="skill-list">
+            <li>Paramétrage de pare-feu</li>
+            <li>Gestion d'antivirus</li>
+            <li>Gestion de sauvegardes</li>
+            <li>Bonnes pratiques de sécurité</li>
+          </ul>
+        </div>
+
+        <div class="skill-group reveal">
+          <div class="skill-group-title">// Outils</div>
+          <h3>Virtualisation & Bureautique</h3>
+          <ul class="skill-list">
+            <li>Création et gestion de VMs sous VMware</li>
+            <li>Word, Excel</li>
+            <li>Configuration téléphonie Android / iOS</li>
+            <li>Diagnostic et réparation de pannes matérielles</li>
+          </ul>
+        </div>
+
+        <div class="skill-group reveal">
+          <div class="skill-group-title">// Soft skills</div>
+          <h3>Communication</h3>
+          <ul class="skill-list">
+            <li>Rédaction de mails professionnels et de rapports</li>
+            <li>Rédaction de procédures de prise en main</li>
+            <li>Support et formation courte des utilisateurs</li>
+            <li>Polyvalent, autonome, bonne gestion du temps</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <div class="section-line"></div>
+  <section id="experience">
+    <div class="section-inner">
+      <div class="section-label">03 — Expériences</div>
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <div class="timeline-date">
+            Depuis jan. 2026
+            <span class="company">Tunzini</span>
+          </div>
+          <div class="timeline-content">
+            <h3>Apprenti Technicien Systèmes & Réseaux</h3>
+            <p>
+              Configuration de postes pour nouveaux utilisateurs et déploiement d'équipements. Réparation et maintenance de traceurs et photocopieurs. Configuration de nouveaux téléphones et transfert de données Android ↔ iOS. Mise en place de serveurs et configuration de switchs ; participation à l'administration du réseau. Support quotidien aux utilisateurs et rédaction de procédures.
+            </p>
+            <div class="timeline-tags">
+              <span class="tag">Windows</span>
+              <span class="tag">VMware</span>
+              <span class="tag">Réseau</span>
+              <span class="tag">Support</span>
+              <span class="tag">Switches</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">
+            Mars–Mai 2021
+            <span class="company">Collège Évariste Galois</span>
+          </div>
+          <div class="timeline-content">
+            <h3>Soutien scolaire bénévole</h3>
+            <p>
+              Soutien en mathématiques auprès d'élèves en difficulté. Développement de la pédagogie, de la patience et des compétences en communication interpersonnelle.
+            </p>
+            <div class="timeline-tags">
+              <span class="tag">Pédagogie</span>
+              <span class="tag">Communication</span>
+              <span class="tag">Bénévolat</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">
+            Nov. 2020
+            <span class="company">École Robespierre</span>
+          </div>
+          <div class="timeline-content">
+            <h3>Stage d'observation</h3>
+            <p>
+              Observation du travail des enseignants. Soutien logistique à la gestion de classe : distribution de documents, assistance organisationnelle.
+            </p>
+            <div class="timeline-tags">
+              <span class="tag">Organisation</span>
+              <span class="tag">Stage</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMATION -->
+  <div class="section-line"></div>
+  <section id="formation">
+    <div class="section-inner">
+      <div class="section-label">04 — Formation</div>
+      <div class="formation-grid">
+
+        <div class="formation-card reveal">
+          <div class="formation-year">2025 → 2027</div>
+          <h3>BTS SIO — Option SISR</h3>
+          <p>Lycée Montalembert, Courbevoie</p>
+          <div class="formation-bg">BTS</div>
+        </div>
+
+        <div class="formation-card reveal">
+          <div class="formation-year">2024 → 2025</div>
+          <h3>Licence STAPS — Spécialité Sport</h3>
+          <p>Université Paris Nanterre</p>
+          <div class="formation-bg">L1</div>
+        </div>
+
+        <div class="formation-card reveal">
+          <div class="formation-year">2023 → 2024</div>
+          <h3>Baccalauréat Général</h3>
+          <p>Spécialité scientifique · Lycée Joliot Curie, Nanterre</p>
+          <div class="formation-bg">BAC</div>
+        </div>
+
+      </div>
+
+      <!-- LANGUES -->
+      <div class="section-label" style="margin-top:4rem">05 — Langues</div>
+      <div class="lang-grid">
+        <div class="lang-item reveal">
+          <span class="lang-code">FR</span>
+          <span class="lang-name">Français</span>
+          <span class="lang-level">C2 — Natif</span>
+        </div>
+        <div class="lang-item reveal">
+          <span class="lang-code">EN</span>
+          <span class="lang-name">Anglais</span>
+          <span class="lang-level">B2 — Avancé</span>
+        </div>
+        <div class="lang-item reveal">
+          <span class="lang-code">ES</span>
+          <span class="lang-name">Espagnol</span>
+          <span class="lang-level">C1 — Courant</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <div class="section-line"></div>
+  <section id="contact">
+    <div class="contact-inner">
+      <p class="pre">// Let's connect</p>
+      <h2>Travaillons<br>ensemble.</h2>
+      <p>Je suis disponible pour des opportunités de stage, d'alternance ou pour toute question. N'hésitez pas à me contacter.</p>
+      <div class="contact-links">
+        <a href="mailto:mohamed.hemamda017@gmail.com" class="btn btn-primary">Envoyer un email</a>
+        <a href="https://linkedin.com" class="btn btn-outline" target="_blank">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>Mohamed Hemamda © 2026</span>
+    <span>Nanterre, 92000 · Permis B </span>
+    <span>Apprenti BTS SIO SISR — Tunzini</span>
+  </footer>
+
+  <script>
+    // CURSOR
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx - 5 + 'px';
+      cursor.style.top  = my - 5 + 'px';
+    });
+
+    (function animateRing() {
+      rx += (mx - rx - 16) * 0.12;
+      ry += (my - ry - 16) * 0.12;
+      ring.style.left = rx + 'px';
+      ring.style.top  = ry + 'px';
+      requestAnimationFrame(animateRing);
+    })();
+
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.style.transform = 'scale(2.5)';
+        ring.style.width = '50px';
+        ring.style.height = '50px';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.style.transform = 'scale(1)';
+        ring.style.width = '32px';
+        ring.style.height = '32px';
+      });
+    });
+
+    // SCROLL REVEAL
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), 100);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal, .timeline-item').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
